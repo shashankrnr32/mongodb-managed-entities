@@ -8,6 +8,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.lang.reflect.Method;
 
+/**
+ * Updatable Advice that implements {@link Updatable#update()} method
+ *
+ * @param <E> Entity Type
+ * @author Shashank Sharma
+ */
 public class UpdatableAdvice<E> extends AbstractDelegatedAdvice<Updatable, E> {
 
     public UpdatableAdvice(E entity, MongoTemplate mongoTemplate, String collectionName,

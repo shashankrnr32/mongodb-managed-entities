@@ -12,6 +12,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+/**
+ * Cloneable Advice that implements {@link Cloneable#clone(Cloneable.CopiedEntityCallback)} and
+ * {@link Cloneable#copy()} methods
+ *
+ * @param <E> Entity Type
+ * @author Shashank Sharma
+ */
 public class CloneableAdvice<E> extends AbstractDelegatedAdvice<Cloneable, E> {
 
     public CloneableAdvice(E entity, MongoTemplate mongoTemplate, String collectionName, ManageableAdvice<E> manageableAdvice) {
@@ -33,7 +40,9 @@ public class CloneableAdvice<E> extends AbstractDelegatedAdvice<Cloneable, E> {
     @SneakyThrows
     private E doClone(MethodInvocation invocation) {
         E copiedEntity = copy(invocation);
-        return getMongoTemplate().insert(copiedEntity);
+        Cloneable.CopiedEntityCallback callback = (Cloneable.CopiedEntityCallback) invocation.getArguments()[0];
+        E entityToSave = (E) callback.callback(copiedEntity);
+        return getMongoTemplate().insert(entityToSave);
     }
 
     @SneakyThrows

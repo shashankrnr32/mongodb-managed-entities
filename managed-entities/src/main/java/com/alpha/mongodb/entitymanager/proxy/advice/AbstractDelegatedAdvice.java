@@ -6,6 +6,12 @@ import lombok.Getter;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.lang.Nullable;
 
+/**
+ * Abstract class for Delegated Advices for Manageable Entities
+ *
+ * @param <T> The manageable interface
+ * @param <E> The entity class
+ */
 public abstract class AbstractDelegatedAdvice<T, E> implements DelegatedAdvice<T> {
 
     @Getter(AccessLevel.PROTECTED)

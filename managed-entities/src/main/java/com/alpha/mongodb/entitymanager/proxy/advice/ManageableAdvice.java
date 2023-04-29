@@ -7,6 +7,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.lang.reflect.Method;
 
+/**
+ * Manageable Advice that implements {@link Manageable#isManaged()} and {@link Manageable#detach()} methods.
+ *
+ * @param <E> Entity Type
+ * @author Shashank Sharma
+ */
 public class ManageableAdvice<E> extends AbstractDelegatedAdvice<Manageable, E> {
 
     private boolean managed = true;
