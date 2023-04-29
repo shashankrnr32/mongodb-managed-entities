@@ -10,6 +10,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.lang.reflect.Method;
 
+/**
+ * Refreshable advice that implements {@link Refreshable#refresh()} method
+ *
+ * @param <E>
+ */
 public class RefreshableAdvice<E> extends AbstractDelegatedAdvice<Refreshable, E> {
 
     public RefreshableAdvice(E entity, MongoTemplate mongoTemplate, String collectionName, ManageableAdvice<E> manageableAdvice) {

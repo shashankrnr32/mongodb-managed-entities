@@ -11,6 +11,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+/**
+ * Deletable Advice that implements {@link Deletable#delete()} method
+ *
+ * @param <E> Entity Type
+ * @author Shashank Sharma
+ */
 public class DeletableAdvice<E> extends AbstractDelegatedAdvice<Deletable, E> {
 
     public DeletableAdvice(E entity, MongoTemplate mongoTemplate, String collectionName, ManageableAdvice<E> manageableAdvice) {

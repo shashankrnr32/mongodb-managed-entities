@@ -20,6 +20,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A method interceptor that delegates the methods to the right advice
+ *
+ * @param <E> Entity type
+ */
 public class MongoManagedEntityAdvice<E> implements MethodInterceptor {
 
     private final MongoTemplate mongoTemplate;

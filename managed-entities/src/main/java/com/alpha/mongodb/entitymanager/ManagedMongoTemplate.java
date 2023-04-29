@@ -8,6 +8,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.data.mongodb.core.convert.MongoWriter;
 
+/**
+ * Managed Mongo Template to create proxy entities for queries and inserts made to the
+ * database. This extends the functionality of {@link MongoTemplate} and creates enhanced entity objects
+ * for query and inserted objects.
+ *
+ * @author Shashank Sharma
+ */
 public class ManagedMongoTemplate extends MongoTemplate {
     public ManagedMongoTemplate(MongoClient mongoClient, String databaseName) {
         super(mongoClient, databaseName);

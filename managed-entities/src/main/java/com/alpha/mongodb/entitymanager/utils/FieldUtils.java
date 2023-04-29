@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class to operate on fields on a class.
+ */
 @UtilityClass
 public class FieldUtils {
 
