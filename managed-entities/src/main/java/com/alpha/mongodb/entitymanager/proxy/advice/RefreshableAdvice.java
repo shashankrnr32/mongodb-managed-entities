@@ -1,6 +1,7 @@
 package com.alpha.mongodb.entitymanager.proxy.advice;
 
 import com.alpha.mongodb.entitymanager.entity.Refreshable;
+import com.alpha.mongodb.entitymanager.exception.EntityNotFoundException;
 import lombok.SneakyThrows;
 import org.aopalliance.intercept.MethodInvocation;
 import org.bson.types.ObjectId;
@@ -30,6 +31,10 @@ public class RefreshableAdvice<E> extends AbstractDelegatedAdvice<Refreshable, E
         Refreshable refreshableEntity = getAdvisedClass().cast(invocation.getThis());
         E refreshedEntity = (E) getMongoTemplate().findById(
                 new ObjectId(refreshableEntity.getId()), getEntity().getClass(), getCollectionName());
+
+        if (null == refreshedEntity) {
+            throw new EntityNotFoundException();
+        }
         BeanUtils.copyProperties(refreshedEntity, invocation.getThis());
     }
 

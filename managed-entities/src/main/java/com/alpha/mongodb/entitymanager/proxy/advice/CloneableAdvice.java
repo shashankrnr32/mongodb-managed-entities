@@ -8,7 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 public class CloneableAdvice<E> extends AbstractDelegatedAdvice<Cloneable, E> {
 
@@ -38,7 +40,9 @@ public class CloneableAdvice<E> extends AbstractDelegatedAdvice<Cloneable, E> {
     private E copy(MethodInvocation invocation) {
         E copiedEntity = (E) invocation.getThis().getClass().getConstructor().newInstance();
         BeanUtils.copyProperties(invocation.getThis(), copiedEntity);
-        FieldUtils.setFieldValue(FieldUtils.getFieldWithAnnotation(invocation.getThis(), Id.class), copiedEntity, null);
+
+        Optional<Field> idField = FieldUtils.getFieldWithAnnotation(copiedEntity.getClass(), Id.class);
+        idField.ifPresent(field -> FieldUtils.setFieldValue(field, copiedEntity, null));
         return copiedEntity;
     }
 
@@ -55,6 +59,4 @@ public class CloneableAdvice<E> extends AbstractDelegatedAdvice<Cloneable, E> {
     public Class<? extends Cloneable> getAdvisedClass() {
         return Cloneable.class;
     }
-
-
 }

@@ -2,12 +2,14 @@ package com.alpha.mongodb.entitymanager.utils;
 
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -48,8 +50,13 @@ public class FieldUtils {
         return getAllFieldsWithAnnotation(t.getClass(), annotationKlass).get(0);
     }
 
-    public static <T, S extends Annotation> Field getFieldWithAnnotation(Class<T> klass, Class<S> annotationKlass) {
-        return getAllFieldsWithAnnotation(klass, annotationKlass).get(0);
+    public static <T, S extends Annotation> Optional<Field> getFieldWithAnnotation(Class<T> klass, Class<S> annotationKlass) {
+        List<Field> fields = getAllFieldsWithAnnotation(klass, annotationKlass);
+        if (CollectionUtils.isEmpty(fields)) {
+            return Optional.empty();
+        } else {
+            return Optional.of(fields.get(0));
+        }
     }
 
     @SneakyThrows
