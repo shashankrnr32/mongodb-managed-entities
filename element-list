@@ -1,5 +1,7 @@
 com.alpha.mongodb.entitymanager
 com.alpha.mongodb.entitymanager.entity
+com.alpha.mongodb.entitymanager.entity.annotation
+com.alpha.mongodb.entitymanager.entity.internal
 com.alpha.mongodb.entitymanager.exception
 com.alpha.mongodb.entitymanager.proxy
 com.alpha.mongodb.entitymanager.proxy.advice
