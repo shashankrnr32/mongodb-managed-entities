@@ -1,7 +1,7 @@
 package com.alpha.mongodb.entitymanager.proxy.advice;
 
+import com.alpha.mongodb.entitymanager.entity.EntityInformation;
 import com.alpha.mongodb.entitymanager.exception.EntityDetachedException;
-import com.alpha.mongodb.entitymanager.proxy.EntityInformation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.MongoTemplate;

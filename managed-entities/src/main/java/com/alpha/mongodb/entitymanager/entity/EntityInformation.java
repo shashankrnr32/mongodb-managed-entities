@@ -1,4 +1,4 @@
-package com.alpha.mongodb.entitymanager.proxy;
+package com.alpha.mongodb.entitymanager.entity;
 
 import com.alpha.mongodb.entitymanager.entity.annotation.EntityConfiguration;
 import com.alpha.mongodb.entitymanager.entity.internal.ManageableWithId;
