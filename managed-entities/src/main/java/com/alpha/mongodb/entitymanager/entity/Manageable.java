@@ -1,5 +1,7 @@
 package com.alpha.mongodb.entitymanager.entity;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 /**
  * A manageable entity that can be detached from the session
  * thereafter, cannot be managed through the entity.
@@ -22,5 +24,14 @@ public interface Manageable {
      * making all the proxied implementations obsolete
      */
     default void detach() {
+    }
+
+    /**
+     * Get Entity Information
+     *
+     * @return
+     */
+    default EntityInformation<? extends Manageable> getEntityInformation() {
+        throw new NotImplementedException();
     }
 }

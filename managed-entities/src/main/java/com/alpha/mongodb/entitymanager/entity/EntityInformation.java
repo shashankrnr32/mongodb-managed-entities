@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.Tolerate;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
@@ -53,12 +54,40 @@ public class EntityInformation<E> {
     }
 
     /**
+     * Get version of the entity
+     *
+     * @param entity Entity
+     * @return Version
+     */
+    public Object getVersion(Object entity) {
+        if (entity instanceof Versioned) {
+            return ((Versioned) entity).getVersion();
+        } else {
+            Optional<Field> idField = FieldUtils.getFieldWithAnnotation(entity.getClass(), Version.class);
+            if (idField.isPresent()) {
+                return FieldUtils.getFieldValue(idField.get(), entity);
+            } else {
+                throw new ManagedEntityRuntimeException("Unable to get Id from Entity");
+            }
+        }
+    }
+
+    /**
      * Get the entity id from the set entity.
      *
      * @return ID
      */
     public Object getId() {
         return getId(entity);
+    }
+
+    /**
+     * Get the entity version from the set entity.
+     *
+     * @return version
+     */
+    public Object getVersion() {
+        return getVersion(entity);
     }
 
     private Object maybeToObjectId(Object id) {
