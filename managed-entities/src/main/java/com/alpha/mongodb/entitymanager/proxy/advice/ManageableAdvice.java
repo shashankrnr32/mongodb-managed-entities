@@ -28,6 +28,8 @@ public class ManageableAdvice<E> extends AbstractDelegatedAdvice<Manageable, E> 
         } else if (invocation.getMethod().equals(getAdvisedClass().getDeclaredMethod("detach"))) {
             detach();
             return null;
+        } else if (invocation.getMethod().equals(getAdvisedClass().getDeclaredMethod("getEntityInformation"))) {
+            return getEntityInformation();
         } else {
             throw new NoSuchMethodException();
         }
@@ -47,7 +49,8 @@ public class ManageableAdvice<E> extends AbstractDelegatedAdvice<Manageable, E> 
     public Method[] getAdvisedMethods() {
         return new Method[]{
                 getAdvisedClass().getDeclaredMethod("isManaged"),
-                getAdvisedClass().getDeclaredMethod("detach")
+                getAdvisedClass().getDeclaredMethod("detach"),
+                getAdvisedClass().getDeclaredMethod("getEntityInformation")
         };
     }
 

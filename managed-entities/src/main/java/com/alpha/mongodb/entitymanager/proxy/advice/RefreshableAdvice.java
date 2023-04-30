@@ -4,7 +4,6 @@ import com.alpha.mongodb.entitymanager.entity.Refreshable;
 import com.alpha.mongodb.entitymanager.exception.EntityNotFoundException;
 import lombok.SneakyThrows;
 import org.aopalliance.intercept.MethodInvocation;
-import org.bson.types.ObjectId;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -33,9 +32,8 @@ public class RefreshableAdvice<E> extends AbstractDelegatedAdvice<Refreshable, E
     }
 
     private void refresh(MethodInvocation invocation) {
-        Refreshable refreshableEntity = getAdvisedClass().cast(invocation.getThis());
-        E refreshedEntity = (E) getMongoTemplate().findById(
-                new ObjectId(refreshableEntity.getId()), getEntity().getClass(), getCollectionName());
+        Object id = getEntityInformation().getId(invocation.getThis());
+        E refreshedEntity = (E) getMongoTemplate().findById(id, getEntity().getClass(), getCollectionName());
 
         if (null == refreshedEntity) {
             throw new EntityNotFoundException();
