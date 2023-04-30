@@ -6,7 +6,9 @@
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=shashankrnr32_mongodb-managed-entities)
 
-MongoDB managed entities allows the user to add proxied implementations for entities without having to actually
+Supercharge your Mongo Entity POJOs with functionalities like `refresh`, `clone` without having to implement them.
+
+MongoDB managed entities allows you to configure proxied implementations for entities without having to actually
 implement them. The library provides multiple interfaces given below which are implemented by proxy advices within the
 library.
 

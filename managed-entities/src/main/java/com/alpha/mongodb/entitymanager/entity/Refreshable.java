@@ -1,5 +1,6 @@
 package com.alpha.mongodb.entitymanager.entity;
 
+import com.alpha.mongodb.entitymanager.entity.internal.ManageableWithId;
 import com.alpha.mongodb.entitymanager.exception.ManagedEntityRuntimeException;
 
 /**
@@ -9,7 +10,7 @@ import com.alpha.mongodb.entitymanager.exception.ManagedEntityRuntimeException;
  *
  * @author Shashank Sharma
  */
-public interface Refreshable extends Manageable {
+public interface Refreshable extends ManageableWithId {
 
     /**
      * Refreshes this entity.
@@ -18,6 +19,4 @@ public interface Refreshable extends Manageable {
      */
     default void refresh() throws ManagedEntityRuntimeException {
     }
-
-    String getId();
 }

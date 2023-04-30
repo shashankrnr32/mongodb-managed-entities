@@ -1,6 +1,7 @@
 package com.alpha.mongodb.entitymanager.proxy.advice;
 
 import com.alpha.mongodb.entitymanager.exception.EntityDetachedException;
+import com.alpha.mongodb.entitymanager.proxy.EntityInformation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,6 +27,9 @@ public abstract class AbstractDelegatedAdvice<T, E> implements DelegatedAdvice<T
     @Getter(AccessLevel.PROTECTED)
     private final ManageableAdvice<E> manageableAdvice;
 
+    @Getter(AccessLevel.PROTECTED)
+    private final EntityInformation<E> entityInformation;
+
     AbstractDelegatedAdvice(E entity, MongoTemplate mongoTemplate, String collectionName,
                             @Nullable ManageableAdvice<E> manageableAdvice) {
         this.entity = entity;
@@ -36,6 +40,8 @@ public abstract class AbstractDelegatedAdvice<T, E> implements DelegatedAdvice<T
         if (!validateEntity()) {
             throw new IllegalStateException(String.format("Unable to register the delegated advice: %s", this.getClass().getName()));
         }
+
+        entityInformation = new EntityInformation<>(entity);
     }
 
     void validateAttachedEntity() {
