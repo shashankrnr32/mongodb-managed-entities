@@ -1,5 +1,6 @@
-package com.alpha.mongodb.entitymanager.entity;
+package com.alpha.mongodb.entitymanager.entity.info;
 
+import com.alpha.mongodb.entitymanager.entity.Versioned;
 import com.alpha.mongodb.entitymanager.entity.annotation.EntityConfiguration;
 import com.alpha.mongodb.entitymanager.entity.internal.ManageableWithId;
 import com.alpha.mongodb.entitymanager.exception.ManagedEntityRuntimeException;
@@ -13,6 +14,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -23,6 +26,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EntityInformation<E> {
 
+    private static final Map<Class<?>, EntitySchemaInformation<?>> SCHEMA_INFORMATION_MAP = new HashMap<>();
+
     @Setter
     public E entity;
 
@@ -32,6 +37,7 @@ public class EntityInformation<E> {
     public EntityInformation(@NonNull E entity) {
         this.entity = entity;
         this.entityClass = (Class<E>) entity.getClass();
+        SCHEMA_INFORMATION_MAP.computeIfAbsent(this.entityClass, EntitySchemaInformation::new);
     }
 
     /**
@@ -108,6 +114,10 @@ public class EntityInformation<E> {
         } else {
             return DefaultEntityConfiguration.class.getDeclaredAnnotation(EntityConfiguration.class);
         }
+    }
+
+    public EntitySchemaInformation<E> getSchemaInformation() {
+        return (EntitySchemaInformation<E>) SCHEMA_INFORMATION_MAP.get(this.entityClass);
     }
 
     @EntityConfiguration
