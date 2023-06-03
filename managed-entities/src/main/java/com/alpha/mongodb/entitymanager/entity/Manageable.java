@@ -1,5 +1,6 @@
 package com.alpha.mongodb.entitymanager.entity;
 
+import com.alpha.mongodb.entitymanager.entity.info.EntityInformation;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**

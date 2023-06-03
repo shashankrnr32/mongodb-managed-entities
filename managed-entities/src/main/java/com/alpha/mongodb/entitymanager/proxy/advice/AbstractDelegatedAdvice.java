@@ -1,6 +1,6 @@
 package com.alpha.mongodb.entitymanager.proxy.advice;
 
-import com.alpha.mongodb.entitymanager.entity.EntityInformation;
+import com.alpha.mongodb.entitymanager.entity.info.EntityInformation;
 import com.alpha.mongodb.entitymanager.exception.EntityDetachedException;
 import lombok.AccessLevel;
 import lombok.Getter;
